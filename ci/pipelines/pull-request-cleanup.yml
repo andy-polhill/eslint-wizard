@@ -1,0 +1,28 @@
+resources:
+  - name: interval
+    type: time
+    source:
+      interval: 1h
+  - name: source
+    type: git
+    source:
+      uri: ((github-uri))
+      branch: ((github-branch))
+      private_key: ((github-key))
+
+jobs:
+  - name: cleanup
+    build_logs_to_retain: 100
+    plan:
+    - get: interval
+      trigger: true
+    - get: source
+    - task: cleanup pull request deploys
+      file: source/ci/tasks/run_cleanup.yml
+      params:
+        ACCESS_TOKEN: ((github-access-token))
+        APP_NAME: ((app-name))
+        GCP_PROJECT: ((dev-gcs-project))
+        GCP_SERVICE_ACCOUNT_KEY: ((dev-gcs-token))
+        GITHUB_REPO: ((github-repo))
+        STORAGE_BUCKET: ((dev-bucket))

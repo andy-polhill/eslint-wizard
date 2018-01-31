@@ -1,0 +1,31 @@
+[
+  {
+    "fallback": "{{{ title }}}",
+    "color": "{{#results.success}}good{{/results.success}}{{^results.success}}danger{{/results.success}}",
+    "text": "{{task}} {{#results.success}}Success{{/results.success}}{{^results.success}}Failure{{/results.success}}{{#results.testResults.assertionResults}}{{message}}{{/results.testResults.assertionResults}}",
+    "title": "{{{ url }}}",
+    "title_link": "{{{ url }}}",
+    {{#results}}
+      "fields": [
+        {
+          "title": "Tests Passed",
+          "value": {{numPassedTests}},
+          "short": true
+        }, {
+          "title": "Suites Passed",
+          "value": {{numPassedTestSuites}},
+          "short": true
+        }, {
+          "title": "Tests Failed",
+          "value": {{numFailedTests}},
+          "short": true
+        }, {
+          "title": "Suites Failed",
+          "value": {{numFailedTestSuites}},
+          "short": true
+        }
+      ],
+    {{/results}}
+    "ts": {{ ts }}
+  }
+]

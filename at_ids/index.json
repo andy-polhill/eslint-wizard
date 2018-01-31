@@ -1,0 +1,13 @@
+{
+  "App": {
+    "root": "53c096da7769",
+    "greeting": "df0078be4aba"
+  },
+  "UserMenu": {
+    "accountAdmin": "9a4ab170ff73",
+    "changePassword": "b3c8c5ece452"
+  },
+  "Status404": {
+    "oops": "9ec5eaf18326"
+  }
+}

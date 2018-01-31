@@ -1,0 +1,97 @@
+{
+  "name": "eslint-wizard.labs.brandwatch.com",
+  "description": "Eslint Wizard | Brandwatch Labs",
+  "engines": {
+    "node": ">=8.5.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^.+\\.css?$": "identity-obj-proxy"
+    },
+    "setupFiles": [
+      "./unit-test-setup.js"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
+  },
+  "main": "",
+  "scripts": {
+    "build": "NODE_ENV=production BABEL_ENV=production webpack --config webpack.static.config.js",
+    "start": "NODE_ENV=development BABEL_ENV=development webpack-dev-server",
+    "test:unit": "jest ./src ./locales",
+    "test:ats": "jest ./ats",
+    "lint": "yarn run lint:js",
+    "lint:js": "eslint src",
+    "ci:master": "./ci/deploy.sh -c ci/pipelines/master.yml -p my-master",
+    "ci:pr": "./ci/deploy.sh -c ci/pipelines/pull-request.yml -p my-pull-request"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrandwatchLtd/my.brandwatch.com.git"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/BrandwatchLtd/my.brandwatch.com#readme",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-axiom": "^1.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.8",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "bw-axiom": "^30.1.0",
+    "clean-webpack-plugin": "^0.1.16",
+    "compression-webpack-plugin": "^1.0.1",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.28.5",
+    "ejs-loader": "^0.3.0",
+    "electron-fetch": "^1.1.0",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.1",
+    "eslint": "4.9.0",
+    "eslint-config-axiom": "^1.0.4",
+    "eslint-plugin-react": "^7.3.0",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "firebase": "^4.9.0",
+    "html-webpack-plugin": "^2.30.1",
+    "i18next": "^9.0.0",
+    "i18next-browser-languagedetector": "^2.0.0",
+    "i18next-localstorage-cache": "^1.1.1",
+    "i18next-xhr-backend": "^1.4.3",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^20.0.4",
+    "ldclient-js": "^1.1.12",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-import": "^11.0.0",
+    "postcss-loader": "^2.0.8",
+    "puppeteer": "^0.11.0",
+    "react": "^16.0.0",
+    "react-addons-test-utils": "^16.0.0-0",
+    "react-dom": "^16.0.0",
+    "react-hot-loader": "^3.0.0-beta.7",
+    "react-i18next": "^5.4.0",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.6",
+    "react-test-renderer": "^16.0.0-0",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-saga": "^0.15.6",
+    "remimi": "^2.0.1",
+    "reselect": "^3.0.1",
+    "sinon": "^3.2.1",
+    "static-site-generator-webpack-plugin": "^3.4.1",
+    "style-loader": "^0.18.2",
+    "stylelint-config-axiom": "^1.0.0",
+    "uuid": "^3.1.0",
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1"
+  }
+}

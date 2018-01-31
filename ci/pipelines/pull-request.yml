@@ -1,0 +1,126 @@
+resource_types:
+  - name: pull-request
+    type: docker-image
+    source:
+      repository: jtarchie/pr
+
+resources:
+  - name: source
+    type: pull-request
+    source:
+      access_token: ((github-access-token))
+      private_key: ((github-key))
+      repo: ((github-repo))
+      uri: ((github-uri))
+      version: every
+
+jobs:
+  - name: test
+    plan:
+      - get: source
+        trigger: true
+      - put: source
+        params:
+          context: $BUILD_JOB_NAME
+          path: source
+          status: pending
+      - aggregate:
+        - task: run lint rules
+          file: source/ci/tasks/run_lint.yml
+          params:
+            REPO: ((github-repo))
+        - task: run unit tests
+          file: source/ci/tasks/run_tests.yml
+          params:
+            REPO: ((github-repo))
+        on_failure:
+          put: source
+          params:
+            context: $BUILD_JOB_NAME
+            path: source
+            status: failure
+        on_success:
+          put: source
+          params:
+            context: $BUILD_JOB_NAME
+            path: source
+            status: success
+
+  - name: deploy
+    plan:
+      - get: source
+        trigger: true
+        passed: [test]
+      - put: source
+        params:
+          context: $BUILD_JOB_NAME
+          path: source
+          status: pending
+      - task: run build
+        file: source/ci/tasks/run_build.yml
+        params:
+          APP_NAME: ((app-name))
+          APP_URL_ACCOUNTS: ((stage-app-url-accounts))
+          APP_URL_ANALYTICS: ((stage-app-url-analytics))
+          APP_URL_AUDIENCES: ((stage-app-url-audiences))
+          APP_URL_VIZIA: ((stage-app-url-vizia))
+          AUTH_AUDIENCE: ((stage-auth-audience))
+          AUTH_DOMAIN: ((stage-auth-domain))
+          BW_DOMAIN: ((stage-bw-domain))
+          MIXPANEL_TOKEN: ((stage-mixpanel-token))
+          NODE_ENV: 'production'
+          REPO: ((github-repo))
+          STORAGE_BUCKET: ((dev-bucket))
+      - task: run deploy
+        file: source/ci/tasks/run_deploy.yml
+        params:
+          APP_NAME: ((app-name))
+          GCP_PROJECT: ((dev-gcs-project))
+          GCP_SERVICE_ACCOUNT_KEY: ((dev-gcs-token))
+          STORAGE_BUCKET: ((dev-bucket))
+        on_failure:
+          put: source
+          params:
+            context: $BUILD_JOB_NAME
+            path: source
+            status: failure
+        on_success:
+          put: source
+          params:
+            context: $BUILD_JOB_NAME
+            path: source
+            status: success
+
+  - name: automate
+    plan:
+      - get: source
+        trigger: true
+        passed: [deploy]
+      - put: source
+        params:
+          context: $BUILD_JOB_NAME
+          path: source
+          status: pending
+      - task: run automation on pr
+        file: source/ci/tasks/run_automation.yml
+        params:
+          AT_IGNORE_CERT_ERRORS: true,
+          AT_LOGIN_PASSWORD: ((stage-at-login-password))
+          AT_LOGIN_USERNAME: ((stage-at-login-username))
+          AT_RUN_IN_BACKGROUND: true
+          AUTH_AUDIENCE: ((auth-audience))
+          AUTH_DOMAIN: ((stage-auth-domain))
+          REPO: ((github-repo))
+          STORAGE_BUCKET: ((dev-bucket))
+        on_failure:
+          put: source
+          params:
+            context: $BUILD_JOB_NAME
+            path: source
+            status: failure
+        on_success:
+          put: source
+          params:
+            context: $BUILD_JOB_NAME
+            path: source
+            status: success

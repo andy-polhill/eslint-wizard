@@ -1,0 +1,7 @@
+{
+  "extends": ["eslint-config-axiom"],
+  "globals": {
+    "jasmine": true,
+    "Promise": true
+  }
+}

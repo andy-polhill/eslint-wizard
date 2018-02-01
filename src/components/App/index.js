@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import App from './App';
 
 const mapStateToProps = ({ auth }) => ({
-  userId: auth.id,
+  loggedIn: Boolean(auth.token),
 });
 
 const mapDispatchToProps = {

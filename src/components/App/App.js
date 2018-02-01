@@ -17,8 +17,8 @@ import UserMenu from '../UserMenu';
 export class App extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    loggedIn: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
-    userId: PropTypes.string,
   };
 
   static contextTypes = {
@@ -36,7 +36,7 @@ export class App extends Component {
   }
 
   render() {
-    const { children, userId } = this.props;
+    const { children, loggedIn } = this.props;
 
     return (
       <Base className="bw-app" data-my-at={ atIds.App.root }>
@@ -47,7 +47,7 @@ export class App extends Component {
               <LogoHorizontal width="12rem" />
             </GridCell>
 
-            { userId &&
+            { loggedIn &&
               <GridCell shrink>
                 <UserMenu />
               </GridCell>

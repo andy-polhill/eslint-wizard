@@ -8,25 +8,23 @@ import {
 export default class UserMenu extends Component {
 
   static propTypes = {
-    displayName: PropTypes.string,
-    email: PropTypes.string,
-    imageUrl: PropTypes.string,
+    avatarUrl: PropTypes.string,
+    login: PropTypes.string,
+    name: PropTypes.string,
   };
 
   render() {
     const {
-      displayName,
-      email,
-      imageUrl,
+      login,
+      name,
+      avatarUrl,
     } = this.props;
-
-    console.log(imageUrl);
 
     return (
       <UserMenuAxiom
-          email={ displayName }
-          firstName={ displayName }
-          imageSrc={ imageUrl }
+          email={ login }
+          firstName={ name }
+          imageSrc={ avatarUrl }
           onLogout={ () => {} }>
         <DropdownMenu>
 

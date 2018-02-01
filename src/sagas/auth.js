@@ -1,27 +1,24 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
-import { apiLogin, apiGetTeams } from '../api/github';
+import { apiLogin, apiGetUser } from '../api/github';
+import { profileReceived } from '../store/profile';
 import {
   authLoginRequested,
-  authProfileReceived,
+  authCredentialsReceived,
 } from '../store/auth';
-import { teamsListReceived } from '../store/teams';
 
 export function* watchLoginRequest() {
   yield takeEvery(authLoginRequested, auth);
 }
 
-export function* auth() {
+function* auth() {
   try {
-    yield call(apiLogin);
-    // yield put(push('/'));
-    const code = new URLSearchParams(document.location).get('code');
-    console.log('code', code);
-    // yield put(authProfileReceived({ credential, user }));
-    // const { teams } = yield call(apiGetTeams, credential.accessToken);
-    // yield put(teamsListReceived({ teams }));
-    // yield put(push('/'));
+    const credentials = yield call(apiLogin);
+    const profile = yield call(apiGetUser, credentials.token);
+    yield put(profileReceived(profile));
+    yield put(authCredentialsReceived(credentials));
+    yield put(push('/'));
   } catch (error) {
-    console.log('error');
+    console.log('error', error);
   }
 }

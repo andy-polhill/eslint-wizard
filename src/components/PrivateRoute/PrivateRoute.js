@@ -7,16 +7,16 @@ import {
 
 export default class PrivateRoute extends Component {
   static propTypes = {
-    component: PropTypes.node.isRequired,
-    userId: PropTypes.string,
+    component: PropTypes.element.isRequired,
+    loggedIn: PropTypes.bool.isRequired,
   }
 
   render() {
-    const { component: Component, userId, ...rest } = this.props;
+    const { component: Component, loggedIn, ...rest } = this.props;
 
     return (
       <Route { ...rest } render={ props => (
-        userId ? <Component { ... this.props } /> : (
+        loggedIn ? <Component { ... this.props } /> : (
           <Redirect to={ {
             pathname: '/login',
             state: { from: props.location },

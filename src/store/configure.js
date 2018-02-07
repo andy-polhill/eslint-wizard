@@ -1,13 +1,15 @@
-import { compose, createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware as createRouterMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import createStateMiddleware from 'redux-localstorage';
 import sagas from '../sagas/root';
 import reducers from './root';
 
 export default (history) => {
   const sagaMiddleware = createSagaMiddleware();
   const routerMiddleware = createRouterMiddleware(history);
+  const stateMiddleware = createStateMiddleware('auth', { key: 'wizard' });
   const middlewares = [sagaMiddleware, routerMiddleware];
   middlewares.push(createSagaMiddleware());
 
@@ -28,7 +30,8 @@ export default (history) => {
   const store = createStore(
     reducers,
     composeWithDevTools(
-      applyMiddleware(...middlewares)
+      applyMiddleware(...middlewares),
+      stateMiddleware,
     ),
   );
 

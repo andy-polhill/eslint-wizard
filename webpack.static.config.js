@@ -17,6 +17,7 @@ module.exports = {
       use: ['babel-loader'],
       include: [
         /src/,
+        /generated/,
       ],
     }, {
       test: /\.ejs$/,
@@ -55,7 +56,6 @@ module.exports = {
       to: './locales',
     }]),
     new webpack.EnvironmentPlugin({
-      FIREBASE_API_KEY: 'AIzaSyDieEHOa8VVZgpqjNBHzXIWHanAZM6TJDg',
       MIXPANEL_TOKEN: null,
       NODE_ENV: null,
     }),
@@ -63,10 +63,10 @@ module.exports = {
       paths: ['/', '/404'],
     }),
     new webpack.optimize.UglifyJsPlugin(),
-    // new CompressionPlugin({
-    //   asset: '[path]',
-    //   algorithm: 'gzip',
-    //   test: /\.js$|\.css$|\.html$|\.svg$/,
-    // }),
+    new CompressionPlugin({
+      asset: '[path]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$|\.svg$/,
+    }),
   ],
 };

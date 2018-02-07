@@ -25,11 +25,8 @@ export default class UserMenu extends Component {
           email={ login }
           firstName={ name }
           imageSrc={ avatarUrl }
-          onLogout={ () => {} }>
-        <DropdownMenu>
-
-        </DropdownMenu>
-      </UserMenuAxiom>
+          lastName=""
+          onLogout={ () => {} } />
     );
   }
 }

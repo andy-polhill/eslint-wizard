@@ -17,7 +17,8 @@ import UserMenu from '../UserMenu';
 export class App extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    loggedIn: PropTypes.bool.isRequired,
+    hasProfile: PropTypes.bool.isRequired,
+    profileRequested: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
   };
 
@@ -35,8 +36,12 @@ export class App extends Component {
     };
   }
 
+  componentWillMount() {
+    if (!this.props.hasProfile) this.props.profileRequested();
+  }
+
   render() {
-    const { children, loggedIn } = this.props;
+    const { children, hasProfile } = this.props;
 
     return (
       <Base className="bw-app" data-my-at={ atIds.App.root }>
@@ -47,7 +52,7 @@ export class App extends Component {
               <LogoHorizontal width="12rem" />
             </GridCell>
 
-            { loggedIn &&
+            { hasProfile &&
               <GridCell shrink>
                 <UserMenu />
               </GridCell>
@@ -56,9 +61,7 @@ export class App extends Component {
         </AppHeader>
 
         <AppBody>
-          <Base>
-            { children }
-          </Base>
+          { children }
         </AppBody>
       </Base>
     );

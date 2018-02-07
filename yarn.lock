@@ -1272,9 +1272,9 @@ builtin-status-codes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
 
-bw-axiom@^30.1.0:
-  version "30.1.0"
-  resolved "https://registry.yarnpkg.com/bw-axiom/-/bw-axiom-30.1.0.tgz#3de27ec572a72f5a54e629413a61e4c4f97cc57e"
+bw-axiom@^33.7.1:
+  version "33.7.1"
+  resolved "https://registry.yarnpkg.com/bw-axiom/-/bw-axiom-33.7.1.tgz#088364e1fa62ccbb8171b62165572483c2651643"
   dependencies:
     classnames "^2.2.1"
     date-fns "^1.0.0"
@@ -6366,6 +6366,10 @@ redux-actions@^2.2.1:
 redux-devtools-extension@^2.13.2:
   version "2.13.2"
   resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.2.tgz#e0f9a8e8dfca7c17be92c7124958a3b94eb2911d"
+
+redux-localstorage@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/redux-localstorage/-/redux-localstorage-0.4.1.tgz#faf6d719c581397294d811473ffcedee065c933c"
 
 redux-saga@^0.15.6:
   version "0.15.6"

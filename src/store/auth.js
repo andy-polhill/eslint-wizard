@@ -6,11 +6,11 @@ const initialState = {
 
 export const tokenSelector = state => state.auth.token;
 
-export const authLoginRequested = createAction('AUTH_LOGIN_REQUESTED');
-export const authCredentialsReceived = createAction('AUTH_LOGIN_RECEIVED');
+export const authRequested = createAction('AUTH_LOGIN_REQUESTED');
+export const authReceived = createAction('AUTH_LOGIN_RECEIVED');
 
 export default handleActions({
-  [authCredentialsReceived]: (state, { payload }) => ({
+  [authReceived]: (state, { payload }) => ({
     ...state,
     token: payload.token,
   }),

@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
-import { authLoginRequested } from '../../store/auth';
+import { authRequested } from '../../store/auth';
 import Login from './Login';
 
 const mapStateToProps = ({ auth }) => ({
-  userId: auth.id,
+  loggedIn: Boolean(auth.token),
 });
 
 const mapDispatchToProps = {
-  onLogin: authLoginRequested,
+  onLogin: authRequested,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

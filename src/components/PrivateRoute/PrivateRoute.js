@@ -7,7 +7,7 @@ import {
 
 export default class PrivateRoute extends Component {
   static propTypes = {
-    component: PropTypes.element.isRequired,
+    component: PropTypes.func.isRequired,
     loggedIn: PropTypes.bool.isRequired,
   }
 

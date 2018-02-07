@@ -23,6 +23,7 @@ module.exports = {
       test: /\.js$/,
       use: ['babel-loader'],
       include: [
+        /generated/,
         /src/,
       ],
     }, {

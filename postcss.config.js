@@ -15,7 +15,7 @@ module.exports = {
           warnings: false,
           variables: Object.assign({},
             require('bw-axiom/lib/materials/cssvars-all'),
-            require('bw-axiom/lib/materials/cssvars-theme-light')
+            require('bw-axiom/lib/materials/cssvars-theme-day')
           ),
         },
       },

@@ -3,8 +3,8 @@ html {
 }
 
 body {
-  background-color: var(--color-context-background);
-  color: var(--color-context-text);
+  /*background-color: var(--color-theme-background);
+  color: var(--color-theme-text);*/
 }
 
 body,
@@ -26,14 +26,13 @@ body,
   flex: 0 0 auto;
   padding: var(--spacing-grid-size--x3) var(--spacing-grid-size--x6);
   border-bottom: 0.0625rem solid var(--color-context-border);
-  background-color: var(--color-context-background);
+  background-color: var(--color-theme-background);
 }
 
 .bw-app__body {
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   padding: calc(var(--spacing-grid-size) * 12) var(--spacing-grid-size--x6);
 }

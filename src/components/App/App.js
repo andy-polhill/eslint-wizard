@@ -11,6 +11,7 @@ import './App.css';
 import atIds from '../../../at_ids';
 import AppBody from './AppBody';
 import AppHeader from './AppHeader';
+import Breadcrumb from '../Breadcrumb';
 import Notifications from '../Notifications';
 import UserMenu from '../UserMenu';
 
@@ -58,7 +59,9 @@ export class App extends Component {
               </GridCell>
             }
           </Grid>
+          <Breadcrumb />
         </AppHeader>
+
 
         <AppBody>
           { children }

@@ -7,23 +7,21 @@ import Rule from './Rule';
 export class Rules extends PureComponent {
   static propTypes = {
     rules: PropTypes.arrayOf(PropTypes.shape({
-      category: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
-      rule: PropTypes.string.isRequired,
+      onClick: PropTypes.func.isRequired,
     })),
-    onRuleClick: PropTypes.func.isRequired,
   };
 
   render() {
-    const { onRuleClick, rules } = this.props;
+    const { rules } = this.props;
 
     return (
       <CardList>
-        { rules.map(({ category, description, rule }, index) =>
+        { rules.map(({ description, onClick }, index) =>
           <Rule
               description={ description }
               key={ index }
-              onClick={ () => onRuleClick(category, rule) } />
+              onClick={ () => onClick() } />
         ) }
       </CardList>
     );

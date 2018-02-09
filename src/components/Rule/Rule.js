@@ -2,11 +2,14 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { translate } from 'react-i18next';
 import {
-  Icon,
   Base,
+  Button,
+  ButtonIcon,
+  ButtonGroup,
   Heading,
-  Paragraph,
+  Icon,
   Link,
+  Paragraph,
 } from 'bw-axiom';
 
 export class Rule extends PureComponent {
@@ -17,26 +20,42 @@ export class Rule extends PureComponent {
       recommended: PropTypes.bool.isRequired,
       url: PropTypes.string.isRequired,
     }).isRequired,
-    schema: PropTypes.arrayOf(
-      PropTypes.shape({
-        type: PropTypes.object.isRequired,
-        properties: PropTypes.object.isRequired,
-        additionalProperties: PropTypes.bool.isRequired,
-      }).isRequired,
-    ),
+    // schema: PropTypes.arrayOf(
+    //   PropTypes.shape({
+    //     type: PropTypes.object.isRequired,
+    //     properties: PropTypes.object.isRequired,
+    //     additionalProperties: PropTypes.bool.isRequired,
+    //   }).isRequired,
+    // ),
+    onNextClick: PropTypes.func.isRequired,
+    onPrevClick: PropTypes.func.isRequired,
   };
 
   render() {
-    const { docs } = this.props;
+    const { docs, onNextClick, onPrevClick } = this.props;
     const { description, category, recommended, url } = docs;
+
     return (
       <Base>
         <Heading textSize="display2">{ description }</Heading>
         <Heading textSize="headtitle">{ category }</Heading>
+
         <Paragraph>
           Recommended: <Icon inline name={ recommended ? 'cross' : 'tick' } />
         </Paragraph>
+
         <Link href={ url } target="eslint">Full details</Link>
+
+        <ButtonGroup textRight>
+          <Button onClick={ () => onPrevClick() } style="secondary">
+            <ButtonIcon name="chevron-left" />
+            Previous
+          </Button>
+          <Button onClick={ () => onNextClick() }>
+            Next
+            <ButtonIcon name="chevron-right" />
+          </Button>
+        </ButtonGroup>
       </Base>
     );
   }

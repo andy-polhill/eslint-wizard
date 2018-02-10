@@ -12,7 +12,7 @@ const mapStateToProps = (_, { computedMatch }) => {
 
 const mapDispatchToProps = {
   onClick: (category, rule) => push(`/category/${category}/rule/${rule}`, {
-    category, rule
+    category, rule,
   }),
 };
 
@@ -24,8 +24,8 @@ const mergeProps = ({ categoryUrl, ruleUrl, ...rest }, { onClick }) => {
 
   return {
     ...rest,
-    onNextClick: () => onClick(categoryUrl, nextRule),
-    onPrevClick: () => onClick(categoryUrl, prevRule),
+    onNextClick: nextRule ? () => onClick(categoryUrl, nextRule) : null,
+    onPrevClick: prevRule ? () => onClick(categoryUrl, prevRule) : null,
   };
 };
 

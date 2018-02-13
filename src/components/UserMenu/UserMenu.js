@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
-  DropdownMenu,
   UserMenu as UserMenuAxiom,
 } from 'bw-axiom';
 
@@ -11,13 +10,15 @@ export default class UserMenu extends Component {
     avatarUrl: PropTypes.string,
     login: PropTypes.string,
     name: PropTypes.string,
+    onLogout: PropTypes.func.isRequired,
   };
 
   render() {
     const {
+      avatarUrl,
       login,
       name,
-      avatarUrl,
+      onLogout,
     } = this.props;
 
     return (
@@ -26,7 +27,7 @@ export default class UserMenu extends Component {
           firstName={ name }
           imageSrc={ avatarUrl }
           lastName=""
-          onLogout={ () => {} } />
+          onLogout={ () => onLogout() } />
     );
   }
 }

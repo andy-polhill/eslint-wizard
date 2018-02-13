@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { translate } from 'react-i18next';
 import {
   Base,
+  Button,
   Grid,
   GridCell,
   LogoHorizontal,
@@ -19,8 +20,10 @@ export class App extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     hasProfile: PropTypes.bool.isRequired,
+    hasToken: PropTypes.bool.isRequired,
     profileRequested: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
+    onLogin: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -38,11 +41,13 @@ export class App extends Component {
   }
 
   componentWillMount() {
-    if (!this.props.hasProfile) this.props.profileRequested();
+    if (this.props.hasToken && !this.props.hasProfile) {
+      this.props.profileRequested();
+    }
   }
 
   render() {
-    const { children, hasProfile } = this.props;
+    const { children, hasProfile, onLogin } = this.props;
 
     return (
       <Base className="bw-app" data-my-at={ atIds.App.root }>
@@ -53,15 +58,23 @@ export class App extends Component {
               <LogoHorizontal width="12rem" />
             </GridCell>
 
+            { !hasProfile &&
+              <GridCell shrink>
+                <Button onClick={ () => onLogin() }>
+                  Authenticate with GitHub
+                </Button>
+              </GridCell>
+            }
+
             { hasProfile &&
               <GridCell shrink>
                 <UserMenu />
               </GridCell>
             }
           </Grid>
+
           <Breadcrumb />
         </AppHeader>
-
 
         <AppBody>
           { children }

@@ -27,8 +27,8 @@ export class Rule extends PureComponent {
     //     additionalProperties: PropTypes.bool.isRequired,
     //   }).isRequired,
     // ),
-    onNextClick: PropTypes.func,
-    onPrevClick: PropTypes.func,
+    onNextClick: PropTypes.func.isRequired,
+    onPrevClick: PropTypes.func.isRequired,
   };
 
   render() {
@@ -47,16 +47,11 @@ export class Rule extends PureComponent {
         <Link href={ url } target="eslint">Full details</Link>
 
         <ButtonGroup textRight>
-          <Button
-              disabled={ !onPrevClick }
-              onClick={ () => onPrevClick() }
-              style="secondary">
+          <Button onClick={ () => onPrevClick() } style="secondary">
             <ButtonIcon name="chevron-left" />
             Previous
           </Button>
-          <Button
-              disabled={ !onNextClick }
-              onClick={ () => onNextClick() }>
+          <Button onClick={ () => onNextClick() }>
             Next
             <ButtonIcon name="chevron-right" />
           </Button>

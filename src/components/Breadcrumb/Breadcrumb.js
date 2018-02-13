@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import {
   Icon,
   Link,
+  Paragraph,
+  Text,
   Toolbar,
   Tool,
 } from 'bw-axiom';
+import BreadcrumbItem from './BreadcrumbItem';
 
 export default class Breadcrumb extends Component {
   static propTypes = {
-    paths: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      onClick: PropTypes.func.isRequired,
-      value: PropTypes.string.isRequired,
-    }).isRequired),
+    onBreadcrumbClick: PropTypes.func.isRequired,
     onHomeClick: PropTypes.func.isRequired,
   }
 
@@ -28,19 +28,34 @@ export default class Breadcrumb extends Component {
   }
 
   render() {
+
     return (
       <Toolbar>
         <Tool>
-          <Link href="/" onClick={ (event) => this.handleHomeClick(event) } >
-            <Icon inline name="home" />&nbsp;/&nbsp;
-          </Link>
-          { this.props.paths.map(path => path.onClick ? (
-            <Link key={ path.name } onClick={ () => path.onClick() }>
-              { path.value }&nbsp;/&nbsp;
+          <Paragraph>
+            <Link href="/" onClick={ (event) => this.handleHomeClick(event) } >
+              <Icon inline name="home" />&nbsp;/&nbsp;
             </Link>
-          ) : (
-            <span>{ path.value }</span>
-          )) }
+            <Route path="*" render={ ({ location }) => {
+              const parts = location.pathname.split('/');
+
+              return parts
+                .filter((part, index) => index > 0 && index % 2 === 0)
+                .map((name, index, filteredParts) => {
+                  const link = parts
+                    .slice(0, parts.indexOf(name) + 1)
+                    .reduce((acc, part) => `${acc}${part}/`, '');
+
+                  return (index === filteredParts.length - 1)
+                  ? <Text>{ name }</Text>
+                  : <BreadcrumbItem
+                      key={ index }
+                      link={ link }
+                      name={ name }
+                      onClick={ () => this.props.onBreadcrumbClick(link) } />;
+                });
+            } } />
+          </Paragraph>
         </Tool>
       </Toolbar>
     );

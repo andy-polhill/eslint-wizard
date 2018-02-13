@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { authRequested } from '../../store/auth';
+import { authLoginRequested } from '../../store/auth';
 import Login from './Login';
 
 const mapStateToProps = ({ auth }) => ({
@@ -7,7 +7,7 @@ const mapStateToProps = ({ auth }) => ({
 });
 
 const mapDispatchToProps = {
-  onLogin: authRequested,
+  onLogin: authLoginRequested,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

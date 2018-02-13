@@ -1,4 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
+import { authLogoutRequested } from './auth'
 
 const initialState = {
   name: null,
@@ -17,5 +18,8 @@ export default handleActions({
     id: payload.id,
     login: payload.login,
     name: payload.name,
+  }),
+  [authLogoutRequested]: () => ({
+    ...initialState,
   }),
 }, initialState);

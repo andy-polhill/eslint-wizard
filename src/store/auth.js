@@ -6,12 +6,16 @@ const initialState = {
 
 export const tokenSelector = state => state.auth.token;
 
-export const authRequested = createAction('AUTH_LOGIN_REQUESTED');
-export const authReceived = createAction('AUTH_LOGIN_RECEIVED');
+export const authLoginRequested = createAction('AUTH_LOGIN_REQUESTED');
+export const authLoginReceived = createAction('AUTH_LOGIN_RECEIVED');
+export const authLogoutRequested = createAction('AUTH_LOGOUT_REQUESTED');
 
 export default handleActions({
-  [authReceived]: (state, { payload }) => ({
+  [authLoginReceived]: (state, { payload }) => ({
     ...state,
     token: payload.token,
+  }),
+  [authLogoutRequested]: () => ({
+    ...initialState,
   }),
 }, initialState);

@@ -3,17 +3,20 @@ import Rule from './Rule';
 import rules from '../../../generated/rules';
 import { push } from 'react-router-redux';
 
-const mapStateToProps = (_, { computedMatch }) => {
-  const { category, rule } = computedMatch.params;
+const mapStateToProps = (_, { match }) => {
+  const { category, rule } = match.params;
   return {
     ...rules[category][rule] || { docs: {} },
   };
 };
 
 const mapDispatchToProps = {
-  onClick: (category, rule) => push(`/category/${category}/rule/${rule}`, {
-    category, rule,
-  }),
+  onClick: (category, rule) => {
+    if (rule) {
+      return push(`/category/${category}/rule/${rule}`);
+    }
+    return push(`/category/${category}`);
+  },
 };
 
 const mergeProps = ({ categoryUrl, ruleUrl, ...rest }, { onClick }) => {
@@ -24,8 +27,8 @@ const mergeProps = ({ categoryUrl, ruleUrl, ...rest }, { onClick }) => {
 
   return {
     ...rest,
-    onNextClick: nextRule ? () => onClick(categoryUrl, nextRule) : null,
-    onPrevClick: prevRule ? () => onClick(categoryUrl, prevRule) : null,
+    onNextClick: nextRule ? () => onClick(categoryUrl, nextRule) : () => onClick(categoryUrl),
+    onPrevClick: prevRule ? () => onClick(categoryUrl, prevRule) : () => onClick(categoryUrl),
   };
 };
 
